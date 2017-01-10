@@ -164,8 +164,3 @@ function shuffle(array) {
 
   return array;
 }
-
-
-
-// var actedUponArray =[]
-//  = [board[y][0], board[y][1], board[y][2], board [y][3]]

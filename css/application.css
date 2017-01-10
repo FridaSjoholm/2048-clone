@@ -1,6 +1,5 @@
 body{
   width: 960px;
-  margin:  0 auto;
 }
 
 .board-container{
@@ -14,4 +13,10 @@ body{
   height:50px;
   margin: 5px;
   display: inline-block;
+}
+
+p{
+  color: white;
+  font-size: 20px;
+  text-align: center;
 }
