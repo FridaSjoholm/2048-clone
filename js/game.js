@@ -1,4 +1,4 @@
-var Game = function(board = '2022200232020002'){
+var Game = function(board = '0000000202000000'){
   var prelBoard= _.map(_.toArray(board), function(num){
     return parseInt(num, 10)
   })
@@ -18,6 +18,8 @@ Game.prototype.toString = function() {
 }
 
 Game.prototype.move = function(direction){
+  var movedFlag = false
+  var oldBoard = this.board.toString()
 
   for (i = 0; i<4; i++) {
     var array = this.arrayCreator(direction, i)
@@ -25,6 +27,10 @@ Game.prototype.move = function(direction){
     workingArray = combineLikes(workingArray);
     workingArray = addZeroes(workingArray);
     this.saveChanges(workingArray, direction, i)
+
+  }
+  if (oldBoard !== this.board.toString()) {
+    this.addNum(direction)
   }
 }
 
@@ -66,7 +72,50 @@ Game.prototype.saveChanges = function(array, direction, i){
 }
 
 Game.prototype.addNum = function(direction){
+  var array
+  var indarr = [0,1,2,3]
+  shuffle(indarr)
+  if (direction === 'right'){
+    array = this.arrayCreator('down', 0);
+    for(var i = 0; i < indarr.length; i++){
+      var ind = indarr[i];
+      if(array[ind] === 0){
+        this.board[ind][0] = 2;
+        break;
+      }
+    }
+  }else if(direction === 'left'){
+    array = this.arrayCreator('down', 3);
+    for(var i = 0; i < indarr.length; i++){
+      var ind = indarr[i];
+      if(array[ind] === 0){
+        this.board[ind][3] = 2;
+        break;
+      }
+    }
+  }else if(direction === 'down'){
+    array = this.arrayCreator('right', 0);
+    for(var i = 0; i < indarr.length; i++){
+      var ind = indarr[i];
+      if(array[ind] === 0){
+        this.board[0][ind] = 2;
+        break;
+      }
+    }
+  }else if(direction === 'up'){
+    array = this.arrayCreator('right', 3);
+    for(var i = 0; i < indarr.length; i++){
+      var ind = indarr[i];
+      if(array[ind] === 0){
+        this.board[3][ind] = 2;
+        break;
+      }
+    }
+  }
+}
 
+
+var insertNum = function(x, y){
 }
 
 var filterZeros = function(array){
@@ -95,6 +144,25 @@ var addZeroes =function(array){
     array.unshift(0)
   }
   return array
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 // var actedUponArray =[]
